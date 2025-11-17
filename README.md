@@ -74,23 +74,25 @@ indent = { tab-width = 4, unit = "    " }
 
 [[grammar]]
 name = "coconut"
-# source = { git = "https://github.com/tree-sitter/tree-sitter-python", rev = "4bfdd9033a2225cc95032ce77066b7aeca9e2efc" }
-source = { path = "/PATH/TO/THIS/REPO"}
+source = { git = "https://github.com/rtbs-dev/tree-sitter-coconut", rev="master" }
+```
+
+Now you need to fetch and build the C headers for the parser. 
+
+```bash
+$ hx --grammar fetch
+$ hx --grammar build
 ```
 
 Helix uses syntax highlighting and indentation queries from it's own runtime directory, not from the tree-sitter package (because Helix uses some of its own names in the queries). So, for now we can do something like this:
 
 ```bash
-$ ln -s $PWD/queries/helix ~/.config/helix/runtime/queries/coconut
+$ ln -s $HELIX_RUNTIME/runtime/grammars/sources/coconut/queries $HELIX_RUNTIME/queries/coconut
 ```
 
-Later, the `queries/helix` folder should probably become a pull request into helix's source.
+Helix should now recognize the queries for syntax highlighting, which you can confirm with `$ hx --health coconut`
 
-```bash
-$ hx --grammar fetch
-$ hx --grammar build
-$ hx --health coconut
-```
+> Later, the `queries/helix` folder should probably become a pull request into helix's source.
 
 Now try opening a coconut file in helix, and you should have syntax highlighting!
 
